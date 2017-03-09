@@ -12,6 +12,7 @@ function __autoload($class_name){
             strtolower($class_name)).'Controller.php';
     $model_path = ROOT.DS.'models'.DS.strtolower($class_name).'.php';
 
+
     if(file_exists($lib_path)){
         require_once ($lib_path);
         //   var_dump($controllers_path);
@@ -20,16 +21,17 @@ function __autoload($class_name){
         require_once($controllers_path);
         // var_dump($controllers_path);
     }elseif(file_exists($model_path)){
-        require_once ($controllers_path);
+        require_once ($model_path);
     }else{
         // echo"<pre>";
 
         throw new Exception('Failed to include class' . $class_name);
     }
 
-
-
 }
 
+function __($key,$default_value = ''){
+    return Lang::get($key,$default_value);
 
+}
 
