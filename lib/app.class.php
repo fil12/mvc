@@ -26,8 +26,20 @@ class App
         $conrtoller_object = new $controller_class();
 
         if (method_exists($conrtoller_object,$conrtoller_method)){
-            $result = $conrtoller_object->$conrtoller_method();
+            //Controller's action may return a view path
+
+            $view_path = $conrtoller_object->$conrtoller_method();
+            $view_object = new View($conrtoller_object->getData(), $view_path);
+            $content = $view_object->render();
+
+        }else{
+            throw new Exception('Method '.$conrtoller_method.' of class '.$controller_class.' does not exist.');
         }
+
+        $layout = self::$router->getRoute();
+        $layout_path = VIEWS_PATH.DS.$layout.'.html';
+        $layout_view_object = new View ( compact('content'), $layout_path);
+        echo $layout_view_object->render();
 
 
 
