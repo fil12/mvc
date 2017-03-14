@@ -5,6 +5,6 @@ define ('VIEWS_PATH', ROOT.DS.'views');
 require_once (ROOT.DS.'lib'.DS.'init.php');
 
 $router = new router($_SERVER['REQUEST_URI']);
-
+session_start();
 
 App::run($_SERVER['REQUEST_URI']);

@@ -17,6 +17,26 @@ class Session{
         self::$flash_message = null;
     }
 
+    public static function set($key,$value){
+        $_SESSION[$key] = $value;
+    }
+
+    public static function get($key){
+        if ($_SESSION[$key]){
+            return $_SESSION[$key];
+        }
+    }
+
+    public static function delete($key){
+        if ($_SESSION[$key]){
+            unset($_SESSION[$key]) ;
+        }
+    }
+
+    public static function destory(){
+        session_destroy();
+    }
+
 
 
 }

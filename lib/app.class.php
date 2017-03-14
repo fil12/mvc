@@ -29,6 +29,13 @@ class App
 
         $conrtoller_method = strtolower(self::$router->getMethodPrefix().self::$router->getAction());
 
+        $layout = self::$router->getRoute();
+        if ($layout == 'admin' && Session::get('role') != 'admin'){
+            if ($conrtoller_method != 'admin_login'){
+                Router::redirect('/admin/users/login');
+            }
+        }
+
         $conrtoller_object = new $controller_class();
 
         if (method_exists($conrtoller_object,$conrtoller_method)){
@@ -42,7 +49,7 @@ class App
             throw new Exception('Method '.$conrtoller_method.' of class '.$controller_class.' does not exist.');
         }
 
-        $layout = self::$router->getRoute();
+
         $layout_path = VIEWS_PATH.DS.$layout.'.html';
         $layout_view_object = new View ( compact('content'), $layout_path);
         echo $layout_view_object->render();

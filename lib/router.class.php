@@ -93,4 +93,8 @@ class Router {
         $this->uri = $uri;
     }
 
+    public static function redirect($redirect_url){
+        header('Location: http://'.$_SERVER['HTTP_HOST'].$redirect_url);
+    }
+
 }
